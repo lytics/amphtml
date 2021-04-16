@@ -1,0 +1,35 @@
+{
+  "transport": {
+    "beacon": false,
+    "xhrpost": false,
+    "image": true
+  },
+  "vars": {
+    "anonymousId": "CLIENT_ID(AMP_ECID_GOOGLE,,_ga)"
+  },
+  "requests": {
+    "host": "https://api.lytics.io/c/",
+    "base": "${cid}?context.library.name=amp&anonymousId=${anonymousId}&context.locale=${browserLanguage}&context.page.path=${canonicalPath}&context.page.url=${canonicalUrl}&context.page.referrer=${documentReferrer}&context.page.title=${title}&context.screen.width=${screenWidth}&context.screen.height=${screenHeight}",
+    "page": "${host}/${base}_e=pv&name=${name}",
+    "track": "${host}/${base}&event=${event}"
+  },
+  "triggers": {
+    "page": {
+      "on": "visible",
+      "request": "page"
+    }
+  },
+  "linkers": {
+    "lytics": {
+      "_uid": {
+        "l_amp_id": "${anonymousId}"
+      },
+      "proxyOnly": false
+    }
+  },
+  "cookies": {
+    "_ga": {
+      "value": "LINKER_PARAM(lytics, l_amp_id)"
+    }
+  }
+}
